@@ -379,25 +379,67 @@ printReverseList(list)*/
 // Task 06
 // написать функцию, которая повторяет функционал метода flat массива на всю глубину.
 
-var arr = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]];
-//console.log(arr.flat(Infinity))
-let newArr =[];
-function flat (arr) {
-   arr.map((elem)=>Array.isArray(elem)? flat(elem): newArr.push(elem))
-return newArr;
+// var arr = [1, 2, [3, 4, [5, 6, [7, 8, [9, 10]]]]];
+// //console.log(arr.flat(Infinity))
+// let newArr =[];
+// function flat (arr) {
+//    arr.map((elem)=>Array.isArray(elem)? flat(elem): newArr.push(elem))
+// return newArr;
+// }
+// console.log(flat(arr))
+
+
+
+// Армия функций!!!!!!!!!!
+//
+// Следующий код создаёт массив из стрелков (shooters).
+// Каждая функция предназначена выводить их порядковые номера. Но что-то пошло не так…
+// 1 way realized
+function makeArmy() {
+
+    let shooters = [];
+
+    let i = 0;
+    while (i < 10) {
+        let num = i;
+        let shooter = function() { // функция shooter
+            alert( num ); // должна выводить порядковый номер
+        };
+        shooters.push(shooter);
+        i++;
+    }
+
+    return shooters;
 }
-console.log(flat(arr))
+
+// 2 way realized
+/*function makeArmy() {
+
+    let shooters = [];
+
+    let i = 0;
+    while (i < 10) {
+        let shooter = function() { // функция shooter
+            alert( shooters.indexOf(shooter) ); // должна выводить порядковый номер
+        };
+        shooters.push(shooter);
+        i++;
+    }
+
+    return shooters;
+}*/
+
+let army = makeArmy();
+
+army[0](); // у 0-го стрелка будет номер 10
+army[5](); // и у 5-го стрелка тоже будет номер 10
+// ... у всех стрелков будет номер 10, вместо 0, 1, 2, 3...
+
 
 
 // just a plug
 export default () => {
 };
-
-
-
-
-
-
 
 
 
