@@ -368,6 +368,190 @@ JSONPlaceholderAPI.postUserData()
 // }).then(resp => console.log(resp.data))
 
 
+//LESSON 12 VIDEO
+//const func = async () => {}
+
+// async function f() {    }
+// f()  - имеем промис резолв со знач undefined
+
+// async function f() {  throw 500 }
+// f() - имеем промис режект
+
+// async function f() {
+//     const response = await someRequest() //ожидается промис именно резолв.
+// }
+// f()
+
+// async function f() {
+//     console.log('start function code')
+//     console.log('end function code')
+// }
+// console.log('start')
+// f()
+// console.log('end')
+// start
+// start function code
+//  end function code
+//  end
+
+
+// async function f() {
+//     console.log('start function code')
+//     console.log('end function code')
+// }
+// console.log('start')
+// f().then(()=>console.log('Promise'))
+// console.log('end')
+// start
+//  start function code
+// end function code
+//  end
+//  Promise
+
+// async function f() {
+//     console.log('start function code')
+//     const resp = await new Promise((resolve=>{
+//         setTimeout(()=>{
+//             resolve('Async response')
+//         }, 1000)
+//     }))
+//     console.log('response ', resp)
+//     console.log('end function code')
+// }
+// console.log('start')
+// f().then(()=>console.log('Promise'))
+// console.log('end')
+// start
+// start function code
+//  end
+// response  Async response
+// end function code
+// Promise
+
+
+// async function f() {
+//     console.log('start function code')
+//     const resp = await new Promise((resolve,reject)=>{
+//         setTimeout(()=>{
+//             reject('Rejected')   // если имеем режект, то остальной код внутри f
+                //пропускается и не выполняется!!!!!!!
+//         }, 1000)
+//     })
+//     console.log('response ', resp)
+//     console.log('end function code')
+// }
+// console.log('start')
+// f().then(()=>console.log('Promise'))
+// console.log('end')
+// start
+//  start function code
+// end
+//  Uncaught (in promise) Rejected
+
+
+//Как сделать чтобы код проолжил работу? Перехватить ошибку!
+// async function f() {
+//     console.log('start function code')
+//     const resp = await new Promise((resolve,reject)=>{
+//         setTimeout(()=>{
+//             reject('Rejected')
+//         }, 1000)
+//     })
+//     console.log('response ', resp)
+//     console.log('end function code')
+// }
+// console.log('start')
+// f().then(()=>console.log('Promise')).catch(err=>{
+//     console.log('error: ', err)})
+// console.log('end')
+// start
+// start function code
+// end
+// error:  Rejected
+//такая конструкция перехвата выглядит некрасиво в том случае если асинхронная
+//функция передается для нажатия кнопке...
+
+//предлагается другая конструкция "try-catch":
+// async function f() {
+//     try {
+//         console.log('start function code')
+//         const resp = await new Promise((resolve, reject) => {
+//             setTimeout(() => {
+//                 reject('Rejected')
+//             }, 1000)
+//         })
+//         console.log('response ', resp)
+//         console.log('end function code')
+//     } catch (err) {
+//         console.log('error: ', err)
+//     }
+// }
+// console.log('start')
+// f().then(()=>console.log('Promise'))
+// console.log('end')
+// start
+// start function code
+// end
+// error:  Rejected
+// Promise
+
+
+
+// async function f() {
+//     try {
+//         console.log('start function code')
+//         const resp = await new Promise((resolve, reject) => {
+//             setTimeout(() => {
+//                 reject('Rejected')
+//             }, 1000)
+//         })
+//         console.log('response ', resp)
+//         console.log('end function code')
+//     } catch (err) {
+//         console.log('error: ', err) //весь код пропускается и обратно в код из Кэтча мы
+//         // уже попасть не сможем!!!
+//     }
+// }
+// console.log('start')
+// f();
+// console.log('end')
+//Важно! Если мы проанализируем ошибку, то вероятно, что просто превышен запрос ожидания и нужно
+//попытаться еще раз направить запрос еще раз! (рекурсивно вызвать функцию )
+//пользователь не заметит что запросов было множество а не один!!!!!
+
+
+async function secondRequest () {
+    try {
+//some request
+    } catch (err){
+        //error handler
+    }
+}
+
+async function f() {
+    try {
+        console.log('start function code')
+        const resp = await new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject('Rejected')
+            }, 1000)
+        })
+        console.log('response ', resp)
+        console.log('end function code')
+    } catch (err) {
+        secondRequest();
+    }
+}
+
+console.log('start')
+f();
+console.log('end')
+
+
+
+
+
+
 // just a plug
 export default () => {
 };

@@ -8,11 +8,26 @@ const Lesson3 = () => {
     const [searchNameByType, setSearchNameByType] = useState('');
     const [searchResultByType, setSearchResultByType] = useState('');
 
-    const searchFilm = () => {
-        API.searchFilmsByTitle(searchName).then(data => {
-            setSearchResult(JSON.stringify(data));
-        })
-    };
+    // const searchFilm = () => {
+    //     API.searchFilmsByTitle(searchName).then(data => {
+    //         if (data) {
+    //             setSearchResult(JSON.stringify(data));
+    //         }
+    //     })
+    // };
+
+    // а теперь через async-await:
+    const searchFilm = async () => {
+        try {
+            const data = await API.searchFilmsByTitle(searchName)
+            if (data) {
+                setSearchResult(JSON.stringify(data));
+            }
+        } catch (err) {
+            console.log('ERROR: ', err)
+        }
+    }
+
 
     const searchByType = (e: React.MouseEvent<HTMLButtonElement>) => {
         const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
