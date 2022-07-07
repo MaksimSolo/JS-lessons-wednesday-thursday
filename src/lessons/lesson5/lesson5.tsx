@@ -21,7 +21,7 @@ console.log('Lesson 5');
 // https://medium.com/@stasonmars/%D0%BF%D0%BE%D0%B4%D1%80%D0%BE%D0%B1%D0%BD%D0%BE-%D0%BE-%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D0%B0%D1%85-apply-call-%D0%B8-bind-%D0%BD%D0%B5%D0%BE%D0%B1%D1%85%D0%BE%D0%B4%D0%B8%D0%BC%D1%8B%D1%85-%D0%BA%D0%B0%D0%B6%D0%B4%D0%BE%D0%BC%D1%83-javascript-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA%D1%83-ddd5f9b06290
 
 
-// Task 01
+// Task 01 - done!
 // Дан объект someObj, реализуйте функцию greeting и присвойте ее ключу объекта с аналогичным именем.
 // Функция должна вернуть строку `My name is ${name}. I am ${age}`, где name и age берутся из свойств объекта
 
@@ -31,11 +31,22 @@ type someObjType = {
 }
 
 let someObj: someObjType = {
-    name: 'Eugene',
-    age: 32
+    name: 'Maksim',
+    age: 38
 }
 
-// Task 02
+function greeting() {
+    // @ts-ignore
+    console.log(`My name is ${this.name}. I am ${this.age}`)
+}
+
+// @ts-ignore
+someObj.greeting = greeting;
+// @ts-ignore
+someObj.greeting()
+
+
+// Task 02 - done!
 // реализовать счетчик counter в виде объекта со следующими методами:
 // get current count; - выводит текущее значение счетчика
 // increment; - увеличивает значение счетчика на 1
@@ -43,44 +54,153 @@ let someObj: someObjType = {
 // set current count; - принимает и присваивает значение счетчику
 // rest current count - устанавливает значение счетчика равным 0
 // все методы должны ссылаться на сам объект
+let counter = {
+    value: 0,
+    getCurrentCount() {
+        console.log(this.value)
+    },
+    increment() {
+        this.value++
+        return counter
+    },
+    decrement() {
+        this.value--
+        return counter
+    },
+    // @ts-ignore
+    setCurrentCount(setValue) {
+        this.value = setValue;
+        return counter
+    },
+    resetCurrentCount() {
+        this.value = 0;
+    },
 
-// Task 03
+}
+// Task 03 - done!
 // переделайте код из Task 02, что бы сработал следующий код:
-// counter.setCurrentCount(10).increment().increment().increment().decrement().getCurrentCount() // 12
+counter.setCurrentCount(10).increment().increment().increment().decrement().getCurrentCount() // 12
 
-// Task 04
+
+// Task 04 - done!
 // Написать функцию конструктор myFirstConstructorFunc которая принимает 2 параметра name и age и возвращает объект
 // у которого будут эти свойства и метод greeting из Task 01
+// @ts-ignore
+function MyFirstConstructorFunc(name, age) {
+    // @ts-ignore
+    this.name = name
+    // @ts-ignore
+    this.age = age
+    MyFirstConstructorFunc.prototype.greeting = greeting
+}
 
-// Task 05 есть 2 объекта One и Two. С помощью bind и метода sayHello заставьте поздороваться объект One
+// @ts-ignore
+let newObj = new MyFirstConstructorFunc('Hanna', 35)
+console.log(newObj)
+newObj.greeting()
+console.log(newObj.name)
+console.log(newObj.age)
+
+
+// Task 05  - done!
+// есть 2 объекта One и Two. С помощью bind и метода sayHello заставьте поздороваться объект One
 
 let One = {name: 'One'};
 let Two = {
-    name: 'Two', sayHello: function () {
+    name: 'Two',
+    sayHello: function () {
         console.log(`Hello, my name is ${this.name}`)
     }
 };
+Two.sayHello.bind(One)();
 
-// Task 06
+// Task 06 - done!
 // создайте объект helperObj у которого есть следующие методы:
 // changeName - меняет значение у свойства name объекта на полученное значение
 // setAge - устанавливает полученное значение в свойство age объекта
 // greeting - используется функция sayHello из Task 05
 // можно использовать @ts-ignore
 
-// Bind
-// 1) Дана функция sumTwoNumbers, реализовать функцию bindNumber которая принимает функцию sumTwoNumbers и число, и
+// @ts-ignore
+let helperObj = {
+    name: '',
+    // @ts-ignore
+    changeName(newName) {
+        this.name = newName
+    },
+    // @ts-ignore
+    setAge(age) {
+        // @ts-ignore
+        this.age = age;
+    },
+    greeting: Two.sayHello
+}
+
+console.log(helperObj)
+helperObj.changeName('Habibullah')
+console.log(helperObj)
+helperObj.greeting()
+
+
+// Bind на суппорт!!!!!!!!!!
+// 1) DONE!   Дана функция sumTwoNumbers, реализовать функцию bindNumber которая принимает функцию sumTwoNumbers и число, и
 // возвращает другую функцию, которое также принимает число и возвращает сумму этих чисел. Замыкание использовать нельзя
 function sumTwoNumbers(a: number, b: number): number {
     return a + b
 };
+// @ts-ignore
+function bindNumber (sumTwoNumbers, num) {
+    return sumTwoNumbers.bind(null,num)
+}
+console.log(bindNumber(sumTwoNumbers,100)(10))
 
-// 2) Напишите функцию которая принимает первым аргументом объект One, а вторым helperObj. Данная функция
+
+// 2) DONE! Напишите функцию которая принимает первым аргументом объект One, а вторым helperObj. Данная функция
 // возвращает другую функцию которая принимает строку в качестве аргумента и устанавливает ее свойству name объекта One
-// 3) Одной строкой установить с помощью helperObj объекту Two поле age в значение 30
-// 4) Создать метод hi у объекта One, который всегда вызывает метод greeting объекта helperObj от имени Two
+// @ts-ignore
+// function setNameByChain(obj1,obj2) {
+//     // @ts-ignore
+//     return obj2.changeName.bind(obj1)
+// }
+// setNameByChain(One,helperObj)('Barabulya!!!')
+// console.log(One.name)
+
+
+// 3) DONE!   Одной строкой установить с помощью helperObj объекту Two поле age в значение 30
+// helperObj.setAge.bind(Two,30)()
+// // @ts-ignore
+// console.log(Two.age)
+
+
+// // 4) DONE! Создать метод hi у объекта One, который всегда вызывает метод greeting объекта helperObj от имени Two
+// // @ts-ignore
+// One.hi=helperObj.greeting.bind(Two)
+// // @ts-ignore
+// One.hi()
 
 // Реализовать задачи 2-4 из Bind с помощью Call
+// 2-CALL) DONE! Напишите функцию которая принимает первым аргументом объект One, а вторым helperObj. Данная функция
+// возвращает другую функцию которая принимает строку в качестве аргумента и устанавливает ее свойству name объекта One
+// @ts-ignore
+function setNameByChain(obj1,obj2,) {
+    // @ts-ignore
+     return function (newName) {obj2.changeName.call(obj1,newName)}
+}
+setNameByChain(One,helperObj)('Of Crimea')
+console.log(One.name)
+
+// 3) DONE!   Одной строкой установить с помощью helperObj объекту Two поле age в значение 30
+helperObj.setAge.call(Two,38)
+// @ts-ignore
+console.log(Two.age)
+
+// 4) DONE! Создать метод hi у объекта One, который всегда вызывает метод greeting объекта helperObj от имени Two
+// @ts-ignore
+
+One.hi=function (){helperObj.greeting.call(Two)}
+// @ts-ignore
+One.hi()
+
 
 
 /////////////////// У функции есть Владелец!
@@ -363,22 +483,22 @@ function sumTwoNumbers(a: number, b: number): number {
 //по соглашению программистов функция конструктор именуется с большой буквы
 //и вызывается только с ключевым словом new
 
-function Test(name, age) {
-    //под капотом this={}
-    // @ts-ignore
-    this.name = name;
-    // @ts-ignore
-    this.age = age;
-    //return 10 - игнор;
-    //return [10] - ретурнится объект
-}
-
-Test.prototype.sayHi = function () {
-    alert('HI!!!!')
-}
-// @ts-ignore
-let obj = new Test('Maksim', 38)
-console.log(obj)
+// function Test(name, age) {
+//     //под капотом this={}
+//     // @ts-ignore
+//     this.name = name;
+//     // @ts-ignore
+//     this.age = age;
+//     //return 10 - игнор;
+//     //return [10] - ретурнится объект
+// }
+//
+// Test.prototype.sayHi = function () {
+//     alert('HI!!!!')
+// }
+// // @ts-ignore
+// let obj = new Test('Maksim', 38)
+// console.log(obj)
 //теперь можем узнать какой функцией создан объект
 //внутри ф-ции конструктора явный ретурн примитива игнорится
 //если явный возврат НЕ примитива - то возвращается НЕ примитив
@@ -391,19 +511,185 @@ console.log(obj)
 //будет создан способом  new Test
 //теперь:
 // @ts-ignore
-let obj2 = new Test('Hanna',30);
-console.log(obj.sayHi===obj2.sayHi)  // true
+// let obj2 = new Test('Hanna',30);
+// console.log(obj.sayHi===obj2.sayHi)  // true
 
 
+/////////////задачи из Learn JavaScript
+// let user = {
+//     name: "Джон",
+//     go: function() { alert(this.name) }
+// };
+// // @ts-ignore
+// (user.go)() //Джон
+/////////
+// function makeUser() {
+//     return {
+//         name: "Джон",
+//         ref: this
+//     };
+// };
+//
+// let user = makeUser();
+//
+// console.log( user.ref ) //window
+////////
+// let obj, method;
+//
+// obj = {
+//     go: function() { alert(this); }
+// };
+//
+// obj.go();  //{go: ƒ}
+//
+// (obj.go)(); //{go: ƒ}
+//
+// (method = obj.go)();  //window
+//
+// (obj.go || obj.stop)();  //window
+///////
+// @ts-ignore
+// let calculator = {
+//     // @ts-ignore
+//         read(a,b) {
+//             // @ts-ignore
+//             calculator.a=a;
+//             // @ts-ignore
+//             calculator.b=b;
+//         },
+//     sum(){
+//         // @ts-ignore
+//         console.log(this.a+this.b)
+//     },
+//     mul() {
+//         // @ts-ignore
+//         console.log(this.a*this.b)
+//     }
+// };
+// calculator.read(10,15);
+// console.log(calculator.sum())  //25
+// console.log(calculator.mul())   //150
+///////
+// let ladder = {
+//     step: 0,
+//     up() {
+//         this.step++;
+//     },
+//     down() {
+//         this.step--;
+//     },
+//     showStep: function() { // показывает текущую ступеньку
+//         console.log( this.step );
+//     }
+// };
+// ladder.up();
+// ladder.up();
+// ladder.down();
+// ladder.showStep();//1
+//измените код так чтобы сделать вызовы по цепочке:
+// let ladder = {
+//     step: 0,
+//     up() {
+//         this.step++;
+//        return  ladder
+//     },
+//     down() {
+//         this.step--;
+//         return  ladder
+//     },
+//     showStep: function() { // показывает текущую ступеньку
+//         console.log( this.step );
+//     }
+// };
+//
+// ladder.up().up().down().showStep(); //1
+//////
+//Создайте функцию-конструктор Calculator, который создаёт объекты с тремя методами:
+// read() запрашивает два значения при помощи prompt и сохраняет их значение в свойствах объекта.
+// sum() возвращает сумму введённых свойств.
+// mul() возвращает произведение введённых свойств.
+// function Calculator() {
+//     // @ts-ignore
+//     this.read = function () {
+//         // @ts-ignore
+//         this.a = +prompt('a?', 0);
+//         // @ts-ignore
+//         this.b = +prompt('b?', 0);
+//     }
+//     // @ts-ignore
+//     this.sum = function () {
+//         return this.a + this.b
+//     }
+//     // @ts-ignore
+//     this.mul= function (){
+//         return this.a * this.b
+//     }
+// }
+// // @ts-ignore
+// let calc1=new Calculator()
+// console.log(calc1)
+// calc1.read()
+// console.log(calc1)
+/////
+//Напишите функцию-конструктор Accumulator(startingValue).
+//
+// Объект, который она создаёт, должен уметь следующее:
+//
+// Хранить «текущее значение» в свойстве value. Начальное значение устанавливается в аргументе конструктора startingValue.
+// Метод read() использует prompt для получения числа и прибавляет его к свойству value.
+// Таким образом, свойство value является текущей суммой всего, что ввёл пользователь при вызовах метода read(), с учётом начального значения startingValue.
+// function Accumulator(startingValue) {
+//     // @ts-ignore
+//     this.value=startingValue
+//     // @ts-ignore
+//     this.read=function (){
+//         // @ts-ignore
+//         this.value = this.value + (+prompt('new Value?', 0));
+//     }
+// }
+//
+// // @ts-ignore
+// let accum1 = new Accumulator(100)
+// console.log(accum1)
+// console.log(accum1.value)
+// accum1.read()
+// accum1.read()
+// console.log(accum1.value)
+////////////////////////////
+// Создайте декоратор spy(func), который должен возвращать обёртку, которая сохраняет все вызовы функции в своём свойстве calls.
+//
+//     Каждый вызов должен сохраняться как массив аргументов.
 
-
-
-
-
-
-
-
-
+// function spy(func) {
+//     // @ts-ignore
+//     function wrapper(...args) {
+//                 // @ts-ignore
+//         wrapper.calls.push(args);
+//         // @ts-ignore
+//         console.log(this)
+//         // @ts-ignore
+//         return func.apply(this, arguments)
+//     }
+//     // @ts-ignore
+//     wrapper.calls=[]
+//     return wrapper
+// }
+//
+// // @ts-ignore
+// function work(a, b) {
+//     console.log(a + b); // произвольная функция или метод
+// }
+//
+// // @ts-ignore
+// work = spy(work);
+//
+// work(1, 2); // 3
+// work(4, 5); // 9
+// // @ts-ignore
+// for (let args of work.calls) {
+//     console.log('call:' + args.join()); // "call:1,2", "call:4,5"
+// }
+///////////////////////////////////
 
 
 // just a plug
