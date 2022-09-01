@@ -248,26 +248,56 @@ console.log('Lesson 6');
 // obj2.someGetMethod()
 
 
-class Test {
-    static param:string = 'Boo' //модификатор статик говорит что это свойство не будет установлено экземпляру класса, то есть не наследуется
-    someGetMethod(){
-        // this здесь указывает на будущий экземпляр класса
-    }
-    static testMethod() {  //здесь виден парам, потому что испся в статическом методе
-        console.log(this.param)  // this здесь указывает на сам класс Тест
-    }
-}
+// class Test {
+//     static param:string = 'Boo' //модификатор статик говорит что это свойство не будет установлено экземпляру класса, то есть не наследуется
+//     someGetMethod(){
+//         // this здесь указывает на будущий экземпляр класса
+//     }
+//     static testMethod() {  //здесь виден парам, потому что испся в статическом методе
+//         console.log(this.param)  // this здесь указывает на сам класс Тест
+//     }
+// }
 //статик - это нужно для ООП подхода, когда нет разнообразия строк кода, а есть цепочки методов классов
 // let obj=new Test()
 // console.log(obj)  // нет такого свойства
 // console.log(Test.param)
 // Test.testMethod()
 
-console.dir(Test)
-console.dir(Promise)  //такие же статические методы есть и у класса промис
+// console.dir(Test)
+// console.dir(Promise)  //такие же статические методы есть и у класса промис
+//////////////////////////
+
+///////////Tasks from LearnJavascript:
+//Задача 1
+// class Animal {
+//      name: any;
+//
+//     constructor(name:any) {
+//         this.name = name;
+//     }
+//
+// }
+//
+// class Rabbit extends Animal {
+//      created: number;
+//
+//     constructor(name:any) {
+//         super(name)          //обязательно нужно указать super, чтобы обратиться к родительскому конструктору и взять прототипы
+//         this.name = name;
+//         this.created = Date.now();
+//     }
+// }
+//
+// let rabbit = new Rabbit("Белый кролик"); // Error: this is not defined
+// alert(rabbit.name);
+// console.log(rabbit.created);
+
+//Задача 2
 
 
 
+
+/////////////////////////////////////
 // Task 01
 // Создайте структуру с именем student, содержащую поля: имя и фамилия, номер группы, успеваемость (массив из пяти элементов).
 // Создать массив из десяти элементов такого типа, упорядочить записи по возрастанию среднего балла.
