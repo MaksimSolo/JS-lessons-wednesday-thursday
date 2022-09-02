@@ -249,7 +249,7 @@ console.log('Lesson 6');
 
 
 // class Test {
-//     static param:string = 'Boo' //модификатор статик говорит что это свойство не будет установлено экземпляру класса, то есть не наследуется
+//     static param:string = 'Boo' //модификатор статик говорит что это свойство не будет установлено экземпляру класса
 //     someGetMethod(){
 //         // this здесь указывает на будущий экземпляр класса
 //     }
@@ -292,7 +292,81 @@ console.log('Lesson 6');
 // alert(rabbit.name);
 // console.log(rabbit.created);
 
-//Задача 2
+//Задача 2 - Улучшенные часы
+// Создайте новый класс ExtendedClock, который будет наследоваться от Clock и
+// добавьте параметр precision – количество миллисекунд между «тиками».
+// Установите значение в 1000 (1 секунда) по умолчанию.
+//
+//     Сохраните ваш код в файл extended-clock.js
+// Не изменяйте класс clock.js. Расширьте его.
+// class Clock {
+//     constructor({ template }) {
+//         this.template = template;
+//     }
+//
+//     render() {
+//         let date = new Date();
+//
+//         let hours = date.getHours();
+//         if (hours < 10) hours = '0' + hours;
+//
+//         let mins = date.getMinutes();
+//         if (mins < 10) mins = '0' + mins;
+//
+//         let secs = date.getSeconds();
+//         if (secs < 10) secs = '0' + secs;
+//
+//         let output = this.template
+//             .replace('h', hours)
+//             .replace('m', mins)
+//             .replace('s', secs);
+//
+//         console.log(output);
+//     }
+//
+//     stop() {
+//         clearInterval(this.timer);
+//     }
+//
+//     start() {
+//         this.render();
+//         this.timer = setInterval(() => this.render(), 1000);
+//     }
+// }
+//
+// class ExtendedClock extends Clock {
+//     constructor({ template }, precision) {
+//         super({ template },);
+//         this.precision = precision
+//     }
+//     start() {
+//         this.render();
+//         this.timer = setInterval(() => this.render(), this.precision);
+//     }
+// }
+//
+// let lowResolutionClock = new ExtendedClock({template: 'h:m:s',},  10000);
+//
+// lowResolutionClock.start();
+
+//Задача 3 Проверка класса: "instanceof"
+// function A() {}
+// function B() {}
+//
+// A.prototype = B.prototype = {};
+//
+// let a = new A();
+//
+// console.log( a instanceof B ); // true
+//Почему true? Потому что
+// Да, действительно, выглядит странно.
+//     Но instanceof не учитывает саму функцию при проверке, а только prototype, который проверяется на совпадения в прототипной цепочке.
+//     И в данном примере a.__proto__ == B.prototype, так что instanceof возвращает true.
+//     Таким образом, по логике instanceof, именно prototype в действительности определяет тип, а не функция-конструктор.
+
+
+
+
 
 
 
