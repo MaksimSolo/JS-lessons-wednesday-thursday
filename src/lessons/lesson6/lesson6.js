@@ -398,49 +398,92 @@ console.log('Lesson 6');
 // Создать массив из десяти элементов такого типа, упорядочить записи по возрастанию среднего балла.
 // Добавить возможность вывода фамилий и номеров групп студентов, имеющих оценки, равные только 4 или 5.
 
-class Student {
-
-    constructor(public name: any, public surname: any, public groupNumber: any, public performance: any[]) {
-    }
-}
-
-const stud1 = new Student('mark', 'bezz', 1, [4, 3, 2, 3, 4,])
-const stud2 = new Student('john', 'crow', 2, [4, 4, 4, 4, 4,])
-const stud3 = new Student('kirke', 'snow', 1, [3, 2, 3, 2, 3,])
-const stud4 = new Student('dustin', 'from', 2, [5, 4, 5, 4, 5,])
-const stud5 = new Student('susan', 'musan', 1, [4, 4,4,4,4,])
-const stud6 = new Student('jork', 'dodd', 2, [5, 2, 5, 2, 5,])
-const stud7 = new Student('derek', 'vince', 1, [1, 3, 5, 3, 1,])
-const stud8 = new Student('sally', 'villi', 2, [5, 4, 5, 5, 5,])
-const stud9 = new Student('pidrik', 'frid', 1, [3, 1, 2, 3, 1,])
-const stud10 = new Student('cromb', 'flomb', 2, [5, 5, 5, 5, 5,])
-
-
-const calculateAverage = (arr:number[]) => {
-    return arr.reduce((acc, el) => acc + el) / arr.length
-}
-const studentsSortToHigh = (...args: Student[]) => {
-    const arrOfStudents = Array.of(...args)
-    return arrOfStudents.sort((a, b) => calculateAverage(a.performance) - calculateAverage(b.performance))
-}
-
-const sortedStudents = studentsSortToHigh(stud1, stud2, stud3, stud4, stud5, stud6, stud7, stud8, stud9, stud10,)
-console.log(sortedStudents)
-
-
-const findStudentWithRequiredScores = (arr: Student[], requiredScore: number) => {
-    const haveRequiredScores = arr.filter(st => st.performance.filter(score => score === requiredScore).length === 5)
-    return haveRequiredScores.map(s => `surname: ${s.surname}, group: ${s.groupNumber}`)
-}
-
-console.log(findStudentWithRequiredScores(sortedStudents, 4))
-console.log(findStudentWithRequiredScores(sortedStudents, 5))
-
+// class Student {
+//     constructor(public name: any, public surname: any, public groupNumber: any, public performance: any[]) {
+//     }
+// }
+//
+// const stud1 = new Student('mark', 'bezz', 1, [4, 3, 2, 3, 4,])
+// const stud2 = new Student('john', 'crow', 2, [4, 4, 4, 4, 4,])
+// const stud3 = new Student('kirke', 'snow', 1, [3, 2, 3, 2, 3,])
+// const stud4 = new Student('dustin', 'from', 2, [5, 4, 5, 4, 5,])
+// const stud5 = new Student('susan', 'musan', 1, [4, 4, 4, 4, 4,])
+// const stud6 = new Student('jork', 'dodd', 2, [5, 2, 5, 2, 5,])
+// const stud7 = new Student('derek', 'vince', 1, [1, 3, 5, 3, 1,])
+// const stud8 = new Student('sally', 'villi', 2, [5, 4, 5, 5, 5,])
+// const stud9 = new Student('pidrik', 'frid', 1, [3, 1, 2, 3, 1,])
+// const stud10 = new Student('cromb', 'flomb', 2, [5, 5, 5, 5, 5,])
+//
+//
+// const calculateAverage = (arr: number[]) => {
+//     return arr.reduce((acc, el) => acc + el) / arr.length
+// }
+// const studentsSortToHigh = (...args: Student[]) => {
+//     const arrOfStudents = Array.of(...args)
+//     return arrOfStudents.sort((a, b) => calculateAverage(a.performance) - calculateAverage(b.performance))
+// }
+//
+// const sortedStudents = studentsSortToHigh(stud1, stud2, stud3, stud4, stud5, stud6, stud7, stud8, stud9, stud10,)
+// console.log(sortedStudents)
+//
+//
+// const findStudentWithRequiredScores = (arr: Student[], requiredScore: number) => {
+//     const haveRequiredScores = arr.filter(st => st.performance.filter(score => score === requiredScore).length === 5)
+//     return haveRequiredScores.map(s => `surname: ${s.surname}, group: ${s.groupNumber}`)
+// }
+//
+// console.log(findStudentWithRequiredScores(sortedStudents, 4))
+// console.log(findStudentWithRequiredScores(sortedStudents, 5))
+//
 
 // Task 02
 // Создать класс с двумя переменными. Добавить конструктор с входными параметрами и инициализирующий члены класса по умолчанию.
 // Можно ли создать метод на экземпляре класса который будет удалять сам экземпляр класса?
+// !!!!!!!!!!!!!!!ответ - уничтожить может только сборщик мусора. но мы можем обнулить все ссылки
+//!!!!!!!ответ - да!! метод экземпляра стирает все свойства и методы и в итоге стирается сборщиком мусора!
+// class Terminator {
+//     constructor(name, model) {
+//         this.name = name;
+//         this.model = model;
+//     }
+// }
+//
+// const terminator=new Terminator("T-500", 500)
+//
+// terminator.delete=function(){
+//     delete this.delete
+//     delete this.name
+//     delete this.model
+// }
+// terminator.delete()
+// console.log(Terminator)
+// console.log(terminator)  //Terminator {}
+//
+
 // Можно ли создать метод класса который будет удалять экземпляр класса?
+// !!!!!!!!!!!!! ответ - ДА!!! можем в прототипко всем экземплярам записать функцию удаления своййств и методов - и тогда объект останется пустым и будет удален сборщиком!
+// class Terminator {
+//     constructor(name, model) {
+//         this.name = name;
+//         this.model = model;
+//     }
+// }
+//
+// const terminator=new Terminator("T-500", 500)
+//
+// Terminator.prototype.delete=function(){
+//     delete this.delete
+//     delete this.name
+//     delete this.model
+//
+// }
+// terminator.delete()
+//
+//
+// console.log(Terminator)
+// console.log(terminator)
+
+
 
 // Task 03
 // Составить описание класса для представления времени. Предусмотреть возможности установки времени и изменения его отдельных
