@@ -461,7 +461,7 @@ console.log('Lesson 6');
 //
 
 // Можно ли создать метод класса который будет удалять экземпляр класса?
-// !!!!!!!!!!!!! ответ - ДА!!! можем в прототипко всем экземплярам записать функцию удаления своййств и методов - и тогда объект останется пустым и будет удален сборщиком!
+// !!!!!!!!!!!!! ответ - ДА!!! можем в прототип ко всем экземплярам записать функцию удаления своййств и методов - и тогда объект останется пустым и будет удален сборщиком!
 // class Terminator {
 //     constructor(name, model) {
 //         this.name = name;
@@ -484,13 +484,81 @@ console.log('Lesson 6');
 // console.log(terminator)
 
 
-
 // Task 03
 // Составить описание класса для представления времени. Предусмотреть возможности установки времени и изменения его отдельных
 // полей (час, минута, секунда) с проверкой допустимости вводимых значений. В случае недопустимых значений полей выбрасываются исключения.
 // Создать методы изменения времени на заданное количество часов, минут и секунд.
 // Создать метод выводящий время в строке формата HH:MM:SS
 // Создать класс по вышеуказанному описанию
+
+// class Clock {
+//     constructor(options) {
+//         this.template = options.template
+//         this.checkIncomingData(options)
+//     }
+//
+//     checkIncomingData(data){
+//         if (data.hours && data.hours >= 0 && data.hours <= 23) this.hours = data.hours;
+//         else {
+//             alert('hours incorrect');
+//             this.hours = 'error'
+//         }
+//         if (data.minutes && data.minutes >= 0 && data.minutes <= 59) this.minutes = data.minutes;
+//         else {
+//             alert('minutes incorrect');
+//             this.minutes = 'error'
+//         }
+//         if (data.seconds && data.seconds >= 0 && data.seconds <= 59) this.seconds = data.seconds;
+//         else {
+//             alert('seconds incorrect');
+//             this.seconds = 'error'
+//         }
+//     }
+//
+//     set clockValues(values) {
+//         this.checkIncomingData(values)
+//         this.render()
+//     }
+//     changeOneClockValue (value,number){
+//         this[value]+=number
+//         this.render()
+//     }
+//
+//     render() {
+//         let clockHours;
+//         let clockMins;
+//         let clockSecs;
+//         this.hours.toString().length<2? clockHours = '0' + this.hours: clockHours = this.hours;
+//         this.minutes.toString().length<2? clockMins = '0' + this.minutes: clockMins = this.minutes;
+//         this.seconds.toString().length<2? clockSecs = '0' + this.seconds: clockSecs = this.seconds;
+//         let output = this.template
+//             .replace('HH', clockHours)
+//             .replace('MM', clockMins)
+//             .replace('SS', clockSecs);
+//         console.log(output)
+//     }
+// }
+//
+// const clock = new Clock({
+//     hours: 45,
+//     minutes: 6,
+//     seconds: 5,
+//     template: 'HH:MM:SS',
+// })
+//
+// console.log(clock)
+// clock.render()
+// clock.clockValues={
+//     hours: 3,
+//     minutes: 3,
+//     seconds: 55,
+// }
+//
+//  clock.changeOneClockValue('seconds',5)
+//  clock.changeOneClockValue('minutes',25)
+//  clock.changeOneClockValue('hours',10)
+
+
 
 // Task 04
 // Класс Покупатель: Фамилия, Имя, Адрес, Номер банковского счета;
