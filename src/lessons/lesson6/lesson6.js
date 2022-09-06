@@ -559,12 +559,60 @@ console.log('Lesson 6');
 //  clock.changeOneClockValue('hours',10)
 
 
-
 // Task 04
 // Класс Покупатель: Фамилия, Имя, Адрес, Номер банковского счета;
 // Методы: установка значений атрибутов, получение значений атрибутов, вывод информации.
 // Создать массив объектов данного класса.
 // Вывести список покупателей в алфавитном порядке и список покупателей, у которых номер кредитной карточки находится в заданном диапазоне.
+
+// class Buyer {
+//     constructor(surname, name, address, cardNumber) {
+//         this.surname = surname
+//         this.name = name
+//         this.address = address
+//         this.cardNumber = cardNumber
+//     }
+//
+//     set buyerAttributes(attributes) {
+//         this.surname = attributes.surname
+//         this.name = attributes.name
+//         this.address = attributes.address
+//         this.cardNumber = attributes.cardNumber
+//     }
+//
+//     get buyerAttributes() {
+//         return `surname: ${this.surname}, name: ${this.name}, address: ${this.address}, cardNumber: ${this.cardNumber}`
+//     }
+// }
+//
+// const buyer1 = new Buyer('lavrov', 'kirill', 'Kievskaya 30', 123456789)
+// const buyer2 = new Buyer('dibrov', 'maksim', 'Obrucheva 22a', 987654321)
+// const buyer3 = new Buyer('zemskov', 'peter', 'Morozovskaya 5456', 424242424)
+// const buyer4 = new Buyer('pashkovets', 'irina', 'Moskovskaya 31/1', 787878787)
+//
+// const makeArrOfBuyers = (...args) => {
+//     return Array.of(...args)
+// }
+//
+// const arrOfBuyers = makeArrOfBuyers(buyer1,buyer2,buyer3,buyer4)
+// console.log(arrOfBuyers)
+//
+// let sortedByName = arrOfBuyers.sort((a, b) => a.surname <= b.surname ? -1 : 1);
+// console.log(sortedByName)
+//
+// let filteredByCardNumber = sortedByName.filter(b=>b.cardNumber>200000000&&b.cardNumber<900000000)
+// console.log(filteredByCardNumber)
+//
+// console.log(buyer4.buyerAttributes)
+//
+// buyer2.buyerAttributes = {
+//     surname: "dibrovenko",
+//     name: 'maksim',
+//      address: 'Obruch? 456',
+//     cardNumber: 987654321
+// }
+// console.log(buyer2.buyerAttributes)
+
 
 // Task 05
 // Создать класс машина - имеющий марку, число цилиндров, мощность. Определить конструктор и функцию печати.
