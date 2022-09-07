@@ -619,6 +619,52 @@ console.log('Lesson 6');
 // Создать производный класс – грузовик, имеющий грузоподъемность кузова.
 // Определить функции переназначения марки и грузоподъемности.
 
+// class Car {
+//     constructor(brand, numberOfCylinders,power ) {
+//         this.brand=brand
+//         this.numberOfCylinders=numberOfCylinders
+//         this.power=power
+//     }
+//
+//     print(){
+//         return `brand: ${this.brand}, numberOfCylinders: ${this.numberOfCylinders}, power: ${this.power}`
+//     }
+// }
+//
+//
+// class Truck extends Car {
+//     constructor(brand, numberOfCylinders,power,loadCapacity ) {
+//         super(brand, numberOfCylinders,power, )
+//         this.loadCapacity=loadCapacity
+//     }
+//
+//     set newLoadCapacity (newLoadCapacity) {
+//         this.loadCapacity=newLoadCapacity
+//     }
+//
+//     changeBrand (newBrand){
+//          this.brand=newBrand
+//     }
+//     print(){
+//         return `brand: ${this.brand}, numberOfCylinders: ${this.numberOfCylinders}, power: ${this.power}, loadCapacity: ${this.loadCapacity}`
+//     }
+//
+// }
+// console.dir(Car)
+// console.dir(Truck)
+//
+// const car =new Car('Toyota', 8,200)
+// const truck=new Truck()
+//
+// console.dir(car)
+// console.dir(truck)
+//
+// truck.numberOfCylinders=12
+// truck.changeBrand('Gelandewagen')
+// console.log(truck.print())
+// truck.newLoadCapacity=500
+// console.log(truck.print())
+// console.log(car.print())
 
 // just a plug
 export default () => {
