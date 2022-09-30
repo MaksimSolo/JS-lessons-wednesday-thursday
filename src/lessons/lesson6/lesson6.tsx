@@ -667,5 +667,9 @@ console.log('Lesson 6');
 // console.log(car.print())
 
 // just a plug
-export default () => {
-};
+const Lesson6 = () => {
+    return (
+        <div>Lesson 6</div>
+)
+}
+export default Lesson6;

@@ -13,6 +13,47 @@ console.log('Lesson 7');
 // https://www.youtube.com/watch?v=aQkgUUmUJy4&t=21s
 // https://www.youtube.com/watch?v=b55hiUlhAzI
 
+///////////////tasks from online lesson 15
+
+// console.dir(function () {})
+// console.dir( ()=> {})
+// console.dir(class {})
+//
+// console.dir(Function)
+// console.dir(Object)
+
+// function f(){
+//
+// }
+//
+// console.log(f.prototype)
+// console.log(typeof f.prototype)
+
+// console.dir(Array)
+// console.log([])
+
+// console.log(Array.prototype)
+// //а как получить свойства на экземпляре этого класса Array?
+// const arrayPrototypeObj = Object.getPrototypeOf([]) //это современный синтаксис
+// console.log(Array.prototype===arrayPrototypeObj)
+// // @ts-ignore
+// console.log(Array.prototype===[].__proto__) //это старый способ обращения. опасность изменения цепочки прототипов
+//
+// const obj = {name:'Yo'}
+// console.log(obj)
+// // @ts-ignore
+// console.log(obj.__proto__)
+
+
+
+
+
+
+
+
+
+
+
 
 //Task 01
 // Реализовать класс Animal который принимает name(по умолчанию 'Animal') в качестве параметра, у которого будет 3
@@ -42,4 +83,4 @@ console.log('Lesson 7');
 
 
 // just a plug
-export default () => {};
+export default () => null;
