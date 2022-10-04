@@ -56,11 +56,23 @@
 //если мы не знаем какой класс от какого наследуется то только двумя проверками можем узнать
 //экземпляром какого класса будет являться объект
 
-//////////???????????Задачка - переписать определение объекта чтобы все получилось и увидеть лог? (тут работа с сеттером и геттером)
-// let obj3 = {a: 1}
+//////////Для создания фреймворков например нужны объекты с кастомной функциональностью,
+//тогда можно сделать так, создать объект вообще без стандартных методов и наполнить его методами нашими:
+// let obj = {name: 'Yo'}
+// // Object.setPrototypeOf(obj, {Bla:'Bla'})
+// // console.log(obj)  //но здесь в итоге вссе равно первоначален прототип класса объект
+// let protoObj = Object.create(null)
+// console.log(protoObj) //создан объект без свойств!
+// protoObj.bla='vla'
+// Object.setPrototypeOf(obj, protoObj)
+// console.log(obj)//создали объект с нужным нам прототипом
+
+
+////////???????????Задачка - переписать определение объекта чтобы все получилось и увидеть лог? (тут работа с сеттером и геттером)
+//let obj3 = {a: 1}
 // let obj3 = Object.create({}, {
-//     yo: {
-//         value:0,
+//     a1: {
+//         value: 1,
 //         writable:true,
 //         configurable: false,
 //         enumerable: false,
@@ -68,20 +80,17 @@
 //     a: {
 //         configurable: true,
 //         enumerable: true,
-//         set (value){
-//             this.yo = value
+//         get() {
+//             return this.a1++
 //         },
-//         get (){
-//             this.yo+=1
-//             return this.yo
-//         },
-//     },
+//         set(value) {
+//             this.a1 = value
+//         }
+//     }
 // })
 // console.log(obj3)
 // console.log(Object.getOwnPropertyDescriptor(obj3, 'a'))
-// // console.log(obj3.a)
-// // console.log(obj3.a)
-// // console.log(obj3.a)
+// console.log(Object.getOwnPropertyDescriptor(obj3, 'a1'))
 //
 // if (obj3.a === 1 && obj3.a === 2 && obj3.a === 3) {
 //     alert('Bingo!!!!!!')
@@ -197,3 +206,62 @@
 //
 // console.log(qq())
 
+
+///////////Tasks from LearnJS!!!!!
+
+// let animal = {
+//     eats: true,
+//     walk() {
+//         console.log("Animal walk");
+//     }
+// };
+// let rabbit = {
+//     jumps: true
+// };
+//
+// //rabbit.__proto__ = animal;
+// Object.setPrototypeOf(rabbit, animal); //или так
+// // console.log(rabbit)
+// // console.log(rabbit.eats);
+//
+// let longEar = {
+//     earLength: 10,
+//     __proto__: rabbit
+// };
+//
+// console.log(longEar)
+// console.log(longEar.walk());
+//
+// rabbit.walk=function () {
+//     console.log("Rabbit! Bounce-bounce!")
+// }
+// rabbit.walk()
+// console.log(rabbit)
+
+
+let user = {
+    name: "John",
+    surname: "Smith",
+
+    set fullName(value) {
+        [this.name, this.surname] = value.split(" ");
+    },
+
+    get fullName() {
+        return `${this.name} ${this.surname}`;
+    }
+};
+
+console.log(user);
+
+let admin = {
+    isAdmin: true
+};
+
+Object.setPrototypeOf(admin, user)
+
+console.log(admin);
+console.log(admin.fullName);
+
+admin.fullName='Maksim Sologubov'
+console.log(admin.fullName);
