@@ -208,6 +208,7 @@
 
 
 ///////////Tasks from LearnJS!!!!!
+///////////////prototype-inheritance
 
 // let animal = {
 //     eats: true,
@@ -239,29 +240,257 @@
 // console.log(rabbit)
 
 
-let user = {
-    name: "John",
-    surname: "Smith",
+// let user = {
+//     name: "John",
+//     surname: "Smith",
+//
+//     set fullName(value) {
+//         [this.name, this.surname] = value.split(" ");
+//     },
+//
+//     get fullName() {
+//         return `${this.name} ${this.surname}`;
+//     }
+// };
+//
+// console.log(user);
+//
+// let admin = {
+//     isAdmin: true
+// };
+//
+// Object.setPrototypeOf(admin, user)
+//
+// console.log(admin);
+// console.log(admin.fullName);
+//
+// admin.fullName='Maksim Sologubov'
+// console.log(admin.fullName);
 
-    set fullName(value) {
-        [this.name, this.surname] = value.split(" ");
-    },
 
-    get fullName() {
-        return `${this.name} ${this.surname}`;
-    }
-};
+// let animal = {
+//     walk() {
+//         if (!this.isSleeping) {
+//             console.log(`I walk`);
+//         }
+//     },
+//     sleep() {
+//         this.isSleeping = true;
+//     }
+// };
+//
+// let rabbit = {
+//     name: "White Rabbit",
+// };
+//
+// Object.setPrototypeOf(rabbit, animal)
+//
+// console.log(rabbit);
+// rabbit.sleep()
+// console.log(rabbit)
+// console.log(animal.isSleeping)
+//
+// console.log(Object.keys(rabbit)) // Object.keys возвращает только собственные ключи
+//
+// for (let prop in rabbit) { //for..in проходит и по своим, и по унаследованным ключам
+//     /*let ownProp = rabbit.hasOwnProperty(prop)
+//     if (ownProp)  console.log(prop)*/
+//
+//     if(Object.hasOwn(rabbit,prop)) console.log(prop)
+// }
 
-console.log(user);
+/////////Какие значения показываются в процессе выполнения кода?
 
-let admin = {
-    isAdmin: true
-};
+// let animal = {
+//     jumps: null
+// };
+// let rabbit = {
+//     __proto__: animal,
+//     jumps: true
+// };
+//
+// alert( rabbit.jumps ); // ? (1) true
+//
+// delete rabbit.jumps;
+//
+// alert( rabbit.jumps ); // ? (2) null
+//
+// delete animal.jumps;
+//
+// alert( rabbit.jumps ); // ? (3) undefined
 
-Object.setPrototypeOf(admin, user)
 
-console.log(admin);
-console.log(admin.fullName);
+// 1.С помощью свойства __proto__ задайте прототипы так, чтобы поиск любого свойства выполнялся
+// по следующему пути: pockets → bed → table → head. Например, pockets.pen должно возвращать
+// значение 3 (найденное в table), а bed.glasses – значение 1 (найденное в head).
+// 2.Ответьте на вопрос: как быстрее получить значение glasses – через pockets.glasses или
+// через head.glasses? При необходимости составьте цепочки поиска и сравните их.
 
-admin.fullName='Maksim Sologubov'
-console.log(admin.fullName);
+// let head = {
+//     glasses: 1
+// };
+//
+// let table = {
+//     pen: 3
+// };
+//
+// let bed = {
+//     sheet: 1,
+//     pillow: 2
+// };
+//
+// let pockets = {
+//     money: 2000
+// };
+//
+// pockets.__proto__=bed
+// bed.__proto__=table
+// table.__proto__=head
+//
+// // console.log( pockets.pen)
+// // console.log( bed.glasses)
+
+
+//Какой объект получит свойство full при вызове rabbit.eat(): animal или rabbit?
+
+// let animal = {
+//     eat() {
+//         this.full = true;
+//     }
+// };
+//
+// let rabbit = {
+//     __proto__: animal
+// };
+//
+// rabbit.eat();
+// console.log(rabbit)
+
+//У нас есть два хомяка: шустрый (speedy) и ленивый (lazy); оба наследуют от общего объекта hamster.
+// Когда мы кормим одного хомяка, второй тоже наедается. Почему? Как это исправить?
+
+// let hamster = {
+//     stomach: [],
+//
+//     // eat(food) {
+//     //     this.stomach.push(food);
+//     // }
+//
+//     eat(food) {
+//         this.stomach=[food]
+//     }
+// };
+//
+// let speedy = {
+//     //stomach: [],
+//     __proto__: hamster
+// };
+//
+// let lazy = {
+//     //stomach: [],
+//     __proto__: hamster
+// };
+//
+// console.log(speedy)
+//
+// // Этот хомяк нашёл еду
+// speedy.eat("apple");
+// console.log( speedy.stomach ); // apple
+//
+// // У этого хомяка тоже есть еда. Почему? Исправьте
+// console.log( lazy.stomach ); // apple
+
+
+///////////Tasks from LearnJS!!!!!
+///////////////native-prototypes
+
+// let obj = {};
+// console.log(obj);
+// console.log(Object.prototype.__proto__) //null
+
+//Добавить функциям метод "f.defer(ms)"
+//Добавьте всем функциям в прототип метод defer(ms),
+// который вызывает функции через ms миллисекунд.
+
+// console.dir(f)
+// Function.prototype.defer=function (ms){setTimeout(this, ms,)}
+//
+//
+// function f() {
+//     console.log("Hello!");
+// }
+//
+// f.defer(5000); // выведет "Hello!" через 5 секунду
+
+//Добавьте функциям декорирующий метод "defer()"
+//Добавьте всем функциям в прототип метод defer(ms), который возвращает обёртку,
+// откладывающую вызов функции на ms миллисекунд.
+
+
+// Function.prototype.defer = function(ms,) {
+//     const func = this;
+//     return function (...args) {
+//         setTimeout(()=>func(...args), ms,)
+//     }
+// }
+// function f(a, b) {
+//     console.log(a + b);
+// }
+//
+// function f1(a, b,c) {
+//     console.log(a*b*c);
+// }
+//
+// f.defer(3000)(12, 1); // выведет 13 через 3 секунду.
+//
+// console.dir(f1.defer(2000)) // ƒ anonymous()
+//
+// f1.defer(2000)(5,6,7) //210
+
+//////////////////////////function-prototype
+
+///Изменяем "prototype"
+// function Rabbit() {}
+// Rabbit.prototype = {
+//     eats: true
+// };
+// console.dir(Rabbit)
+//
+// let rabbit = new Rabbit();
+// //
+// Rabbit.prototype = {};
+// //
+// console.dir(rabbit)
+// //
+// console.log( rabbit.eats ); // true
+//
+// Rabbit.prototype.eats = false;
+//
+// delete rabbit.eats;
+//
+// delete Rabbit.prototype.eats;
+
+///////////Создайте новый объект с помощью уже существующего
+
+// function SomeFunc (){};
+// let obj = new SomeFunc()
+// let obj2 = new obj.constructor();
+// console.dir(obj)
+// console.dir(obj2)
+//Всё получилось, потому что SomeFunc.prototype.constructor == SomeFunc.
+//Но если кто-то перезапишет SomeFunc.prototype и забудет заново назначить
+// свойство "constructor", чтобы оно указывало на SomeFunc, то ничего не выйдет.
+
+// function SomeFunc (){};
+//
+// // SomeFunc.prototype = {
+// //     bla (){},
+// // }  // будут разные результаты
+//
+// SomeFunc.prototype.bla = function (){} // снова все в порядке
+//
+// let obj = new SomeFunc()
+// let obj2 = new obj.constructor();
+// console.dir(obj)
+// console.dir(obj2)
+

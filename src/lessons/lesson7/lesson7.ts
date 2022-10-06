@@ -17,6 +17,7 @@ import './lesson7_2'
 
 ///////////////tasks from online lesson 15
 
+
 // console.dir(function () {})
 // console.dir( ()=> {})
 // console.dir(class {})
