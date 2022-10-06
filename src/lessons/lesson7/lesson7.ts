@@ -9,7 +9,7 @@ import './lesson7_2'
 
 // Prototype
 // https://learn.javascript.ru/function-prototype
-// https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype
+// https://developer.mozilla.org/ru/docs/Learn/JavaScript/Objects/Object_prototypes
 
 
 // https://www.youtube.com/watch?v=aQkgUUmUJy4&t=21s

@@ -1,39 +1,40 @@
 //сделаем то же что и в классовом синтаксисе , теперь с функциями конструкторами
 
-// function Test(name, age) {
-//     this.name = name;
-//     this.age = age;
-// }
-//
-// Test.prototype.getName = function () {
-// };
-//
+function Test(name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+Test.prototype.getName = function () {
+};
+
 // //как запилить наследование с использованием функций?
 //
-// function SuperTest(name, age, city) {
-//     Test.call(this, name, age)  //эта строчка нужна чтобы не дублировать код и чтобы отследить где именно объект начинает формироваться и где какие свойства заполняются
-//     //то есть методом call мы заполняем собственные свойства объекта
-//     //а методом object.create создаем наследование прототипов
-//     this.city = city
-// }
+function SuperTest(name, age, city) {
+    Test.call(this, name, age)  //эта строчка нужна чтобы не дублировать код и чтобы отследить где именно объект начинает формироваться и где какие свойства заполняются
+    //то есть методом call мы заполняем собственные свойства объекта
+    //а методом object.create создаем наследование прототипов
+    this.city = city
+}
 //
 // //но прототипа нужного не будет, поэтому:
 //
-// SuperTest.prototype = Object.create(Test.prototype, {
-//     constructor: {
-//         value: SuperTest, //конструктор указывает на саму функцию: это позволяет установить связь экземпляра
-//         //с функцией создавшей этот экз, и если экземпляр оказался в коде там где недоступна функция-создатель, то
-//         // вдруг нам нужен в этом месте другой экз-р от этой функции, то мы из нашего существующего экземпляра сделаем
-//         //еще один экземпляр!
-//     },
-//     getName: {
-//         value: function () {
-//         }
-//     }
-// })
-//
-// let obj = new SuperTest('Hanna', 35, 'Brya')
-// console.log(obj);
+SuperTest.prototype = Object.create(Test.prototype, {
+    constructor: {
+        value: SuperTest, //конструктор указывает на саму функцию: это позволяет установить связь экземпляра
+        //с функцией создавшей этот экз, и если экземпляр оказался в коде там где недоступна функция-создатель, то
+        // вдруг нам нужен в этом месте другой экз-р от этой функции, то мы из нашего существующего экземпляра сделаем
+        //еще один экземпляр!
+    },
+    getName: {
+        value: function () {
+        }
+    }
+})
+
+let obj = new SuperTest('Hanna', 35, 'Brya')
+console.dir(SuperTest)
+console.log(obj);
 // //то есть для функций всегда  нужно будет вызывать call, заполнять все нужные нам свойста, а далее
 // //переопределять прототип чтобы четко работало
 // // переопределение делается сразу после объявления функции
@@ -99,27 +100,175 @@
 ////////////////////////////////////////////
 
 
-//Task 01
+//Task 01 - done
 // Реализовать класс Animal который принимает name(по умолчанию 'Animal') в качестве параметра, у которого будет 3
 // метода walk, eat, sleep - каждый метод должен выводить в консоль строку имя + действие. Пример:
 // walk => `${this.name} walking`
 // проверить, что методы работают
 
+class Animal {
+    constructor(name = 'Animal') {
+        this.name = name
+    }
 
-//Task 02
+    walk() {
+        console.log(`${this.name} walking`)
+    }
+
+    eat() {
+        console.log(`${this.name} eating`)
+    }
+
+    sleep() {
+        console.log(`${this.name} sleeping`)
+    }
+}
+
+let animal = new Animal()
+
+// console.log(animal.walk())
+// console.log(animal.eat())
+// console.log(animal.sleep())
+
+
+//Task 02 -
 // Реализовать класс Monkey на базе класса Animal,  конструктор принимает name(по умолчанию 'Monkey') в качестве
 // параметра, реализовать методы roar и climb аналогично классу Animal
 // проверить, что все методы работают
 
+class Monkey extends Animal {
+    constructor(name = 'Monkey') {
+        super(name);
+    }
+
+    roar() {
+        console.log(`${this.name} roaring`)
+    }
+
+    climb() {
+        console.log(`${this.name} climbing`)
+    }
+}
+
+let monkey = new Monkey()
+// console.dir(Animal)
+// console.dir(Monkey)
+// console.log(animal)
+// console.log(monkey)
+// console.log(monkey.name)
+// console.log(monkey.roar())
+// console.log(monkey.climb())
 
 //Task 03
 // Реализовать класс Human на базе класса Monkey, конструктор принимает name(по умолчанию 'Human') в качестве
 // параметра, реализовать методы speak и think аналогично классу Animal
 // проверить, что все методы работают
 
+class Human extends Monkey {
+    constructor(name = 'Human') {
+        super(name);
+    }
 
-// Task 04
+    speak() {
+        console.log(`${this.name} speaking`)
+    }
+
+    think() {
+        console.log(`${this.name} thinking`)
+    }
+}
+
+let human = new Human()
+// console.dir(Human)
+// console.log(human)
+// console.log(human.name)
+// console.log(human.speak())
+// console.log(human.think())
+
+
+// Task 04 -done!
 // Реализовать таски 01-03 через функции конструкторы в отдельном JS файле, реализовать наследование
+function Animal_F(name = "Animal") {
+    this.name = name
+}
+
+Animal_F.prototype = Object.create({}, {
+    constructor: {
+        value: Animal_F
+    },
+    walk: {
+        value: function () {
+            console.log(`${this.name} walking`)
+        },
+    },
+
+    eat: {
+        value: function () {
+            console.log(`${this.name} eating`)
+        }
+    },
+
+    sleep: {
+        value: function () {
+            console.log(`${this.name} sleeping`)
+        }
+    },
+
+})
+
+function Monkey_F(name = "Monkey") {
+    this.name = name
+}
+
+Monkey_F.prototype = Object.create(Animal_F.prototype, {
+    constructor: {
+        value: Monkey_F
+    },
+    roar: {
+        value: function () {
+            console.log(`${this.name} roaring`)
+        }
+    },
+    climb: {
+        value: function () {
+            console.log(`${this.name} climbing`)
+        }
+    },
+})
+
+function Human_F(name = "Human") {
+    this.name = name
+}
+Human_F.prototype=Object.create(Monkey_F.prototype,{
+    constructor: {
+        value: Human_F
+    },
+    speak: {
+        value: function () {
+            console.log(`${this.name} speaking`)
+        }
+    },
+    think: {
+        value: function () {
+            console.log(`${this.name} thinking`)
+        }
+    },
+})
+
+let animal1 = new Animal_F()
+let monkey1= new Monkey_F()
+let human1= new Human_F()
+
+// console.dir(Animal_F)
+// console.log(animal1)
+// console.dir(Monkey_F)
+// console.log(monkey1)
+console.dir(Human_F)
+console.log(human1)
+
+console.log(human1 instanceof Animal_F) //true
+console.log(human1 instanceof Monkey_F) //true
+console.log(human1 instanceof Human_F) //true
 
 
 // Task 05
