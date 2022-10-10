@@ -18,8 +18,6 @@
 // console.log(e)
 
 
-
-
 //Task B
 //
 // 	let a = 5
@@ -36,8 +34,6 @@
 // f2()
 // console.log(a)
 //
-
-
 
 
 //Task C
@@ -61,8 +57,6 @@
 // console.log(c) //function c
 
 
-
-
 //Task 1
 
 // let car1 = new Promise((_, reject) => setTimeout(reject, 2000, 'Car 1 crashed in'));
@@ -75,7 +69,6 @@
 // 		console.log(result)
 // 	})
 // 	.catch(err => console.log('Race is cancelled.', err));
-
 
 
 //Task 2
@@ -166,19 +159,24 @@
 // setTimeout(() => console.log(1), 0);
 // console.log(2);
 // new Promise((resolve, reject) => {
-// 	setTimeout(() => reject(console.log(3), 1000));
+// 	setTimeout(() => reject(console.log(3)), 1000);
 // }).catch(() => console.log(4));
 // console.log(5);
+// //2 5 1 3 4
 
 //Task 8
-// let date = new Date(2020,05,10);
-// let dateDusplayOptions = {
+// let date = new Date(2020, 0o5,10);
+// let dateDisplayOptions = {
 // 	year: 'numeric',
 // 	month: 'long',
-// 	day: 'numeric'
+// 	day: 'numeric',
+// 	era: "long",
+// 	//dateStyle: "full",
 // };
-// let formattedDate = date.toLocaleDateString('en', dateDusplayOptions);
+// let formattedDate = date.toLocaleDateString('en', dateDisplayOptions);
+// console.log(typeof formattedDate);
 // console.log(formattedDate);
+// //
 
 //Task 9
 // let objBook = {title: 'JavaScript',};
@@ -188,6 +186,9 @@
 //
 // console.log(objBook);
 // console.log(newObjBook);
+// //'JavaScript'
+// //'JavaScript'
+//but in strict mode will be an error
 
 //Task 10
 // function getAvaliabilityMessage(item) {
@@ -200,18 +201,25 @@
 // function getAvailability(name) {
 // 	return name === 'Eugene';
 // }
-//
+
 // console.log('getAvaliabilityMessage ', getAvaliabilityMessage('newUserName'));
+
+//getAvaliabilityMessage  undefined
+// we will see undefined because var msg will have time to initialize and to get up to
+// the nearest function declaration
+
 
 // Task 11
 // const entries = [];
 // entries.push('a');
 // entries.push('b', 'c');
 // console.log(entries.pop());
+// // c
 
 // Task 12
 // const entries = ['a', 1, true];
 // console.log(entries instanceof Array);
+// // true
 
 // Task 13
 // const priority = new Set(['High', 'Low']);
@@ -219,15 +227,25 @@
 // 	console.log(`s[${key}] = ${value}`);
 // }
 // priority.forEach(logSetElements);
+//s[High] = High
+//s[Low] = Low
+// it happens, because call of new Set is creating new iterable structure named 'set'(object type), which
+// contains of values only (not 'key:value'). Callback inside method 'forEach' is receiving 3 arguments
+// for having a compatibility with Map structure, but in our case 'key' and 'value' is the same!
+// Thus, each element of our set will be used twice.
 
 // Task 14
 // const ids = new Set([1, '1']);
 // console.log(ids.size);
+// 2
 
 // Task 15
 // const entries = ['a', 'b', 'c'];
 // entries.length = 10;
 // console.log(entries.length);
+//
+// //10 - remember that empty values '', isn't iterable!
+
 
 // Task 16
 // const priority = [1, 2, 3];
@@ -240,12 +258,14 @@
 // 	{ adjustment: 100 }
 // );
 // console.log(priority100);
+//[110,120,130]
 
 // Task 17
 // const ratings = [1, 2, 3, 4, 5];
 // const result = ratings.reduce((start, next, index, array) =>
 // 	start * next );
 // console.log(result);
+// //120
 
 
 // Task 18
@@ -253,6 +273,9 @@
 // for (const item of priority) {
 // 	console.log(item);
 // }
+// // undefined
+// // undefined
+
 
 //
 // Task 19
@@ -260,16 +283,19 @@
 // const newEntries =
 // 	entries.concat(['d', 'e', 'f'], 'g', 'h');
 // console.log(newEntries.length);
+// //8
 
 // Task 20
 // const priority = ['Low', 'Normal', 'High'];
 // // … - rest operator
 // const [low, ...remaining] = priority;
 // console.log(remaining);
+// //['Normal', 'High']
 
 // Task 21
 // let task = { isDone: false };
 // console.log( Object.prototype.isPrototypeOf(task) );
+// //true
 
 // Task 22
 // let task1 = { id: 1 };
@@ -277,6 +303,7 @@
 // let target = {};
 // Object.assign(target, task1, task2);
 // console.log(target);
+// // {id: 2, priority: 100}
 
 // Task 23
 // 'use strict';
@@ -286,6 +313,7 @@
 // task.action = 'Create';
 // Object.defineProperty(task, 'priority', {value: 'High'})
 // console.log(task);
+// // Uncaught TypeError: Cannot assign to read only property 'id' of object '#<Object>'
 
 // Task 24
 // let task = {
@@ -294,6 +322,7 @@
 // };
 // let anotherTask = task;
 // console.log(anotherTask.isDone);
+// //true
 
 // Task 25
 // class Task {
@@ -304,6 +333,7 @@
 // class UrgentTask extends Task {
 // }
 // let task = new UrgentTask();
+// //UrgentTask
 
 
 // Task 26
@@ -318,7 +348,8 @@
 // }
 // let task = new Task();
 // task.showId();
-
+// //Constructing Task
+// //2
 
 // Task 27
 // class Task {
@@ -334,6 +365,8 @@
 // 	}
 // }
 // let task = new UrgentTask();
+//Script snippet #2:8 Uncaught ReferenceError: Must call super constructor
+// in derived class before accessing 'this' or returning from derived constructor
 
 
 // Task 28
@@ -347,6 +380,7 @@
 // let task1 = new Task('create');
 // let task2 = new Task('delete');
 // console.log(task1.complete === task2.complete);
+// //false
 
 // Task 29
 // let task1 = { action: 'Create…' };
@@ -356,6 +390,7 @@
 // project.set(task2, 'Normal Priority');
 // project.clear();
 // console.log(project.size);
+// 0
 
 
 // Task 30
@@ -367,12 +402,15 @@
 // 	return x;
 // }
 // console.log( sum(1, 2, 3) );
+// // 6
 
 // Task 31
 // let squareFunc = function square(x, y) {
 // 	console.log(x * y);
 // };
 // square(2, 3);
+//
+// // Uncaught ReferenceError: square is not defined
 
 // Task 32
 // function square(x, y) {
@@ -380,6 +418,8 @@
 // }
 // let v = square(2, 3);
 // console.log(v);
+// // 6
+// // undefined
 
 // Task 33
 // let person = {
@@ -391,6 +431,8 @@
 // ${this.lastName}`);
 // }
 // showFullName.call(person);
+// //Anna
+// // Vasilieva
 
 // Task 34
 // uniqueInteger.count = 0;
@@ -399,7 +441,7 @@
 // }
 // console.log( uniqueInteger() );
 // console.log( uniqueInteger() );
-
+// // 0 1
 
 // Task 35
 // var callback = function(x) { console.log(x); };
@@ -407,6 +449,7 @@
 // 	closure(10);
 // };
 // callAClosure(callback);
+// 10
 
 // Task 36
 // var x = 10;
@@ -417,6 +460,7 @@
 // 	x = x * x;
 // })();
 // capturedClosure();
+// // 100
 
 
 // Task 37
@@ -424,12 +468,16 @@
 // 'use strict';
 // 	document.addEventListener('click', () => console.log(this) );
 // })();
+//
+// //undefined - because function isn't return anything
 
 // Task 38
 // let getTaskId = () => {
-// 	id: return 1
+//     id:
+//         return 1
 // };
 // console.log(getTaskId());
+// // 1
 
 // Task 39
 // let task = {
@@ -442,4 +490,5 @@
 // 	id: 987
 // };
 // task.done().bind( anotherTask )();
+// //123 - because this of arrow function is unchangeable
 
